@@ -1,0 +1,7 @@
+{
+  "name": "CantiniereMobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
