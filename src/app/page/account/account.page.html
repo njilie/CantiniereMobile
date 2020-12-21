@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button routerLink="/profile">
+      <!-- <img *ngIf="profilePicture; else noPicture" [src]="profilePicture.image64" class="img-fluid border rounded-circle" alt="Image">
+      <ng-template #noPicture>
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+      </ng-template> -->
+      <ion-icon slot="start" name="create-outline"></ion-icon>
+      <ion-label>
+        <h3>Profil</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/profile">
+      <ion-icon slot="start" name="basket-outline"></ion-icon>
+      <ion-label>
+        <h3>Mes commandes en cours (panier)</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/profile">
+      <ion-icon slot="start" name="list-outline"></ion-icon>
+      <ion-label>
+        <h3>Toutes mes commandes</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon slot="start" name="logo-euro"></ion-icon>
+      <ion-label>
+        <h3>Cagnotte {{ user.wallet | number:'1.1-2' }} €</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button routerLink="/logout">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      <ion-label>
+        <h3>Deconnexion</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
