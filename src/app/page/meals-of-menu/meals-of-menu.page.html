@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" defaultHref="/"></ion-back-button>
+    </ion-buttons>
     <ion-title>{{ menu ? menu.label : '' }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,13 +10,13 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <!-- <ion-col>
         <ion-button size="large"
         color="light" class="ion-margin-top ion-margin-start"
         routerLink="/home">
           <ion-icon slot="start" name="arrow-back"></ion-icon> Retour
         </ion-button>
-      </ion-col>
+      </ion-col> -->
       <ion-col class="ion-text-right">
         <ion-button size="large"
         color="light" class="ion-margin-top ion-margin-end" (click)="orderMaker(menu.id)">
@@ -31,9 +34,11 @@
         <ion-card-title>{{ meal.label }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <span *ngIf="meal.ingredients">Composé de : </span>
-        <div class="p-t-10">
-          <p *ngFor="let ingredient of meal.ingredients">{{ ingredient.label }}</p>
+        <div *ngIf="meal.ingredients" class="ingredient-container">
+          <span>Composé de :</span>
+          <ul *ngFor="let ingredient of meal.ingredients">
+            <li>{{ ingredient.label }}</li>
+          </ul>
         </div>
       </ion-card-content>
     </ion-card>

@@ -1,9 +1,88 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" defaultHref="/account"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Profile
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div padding>
+            <ion-item lines="full">
+              <ion-label position="floating">Nom*</ion-label>
+              <ion-input type="text" formControlName="name" [(ngModel)]="user.name"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Prénom*</ion-label>
+              <ion-input type="text" formControlName="firstname" [(ngModel)]="user.firstname"></ion-input>
+            </ion-item>
 
+            <ion-item lines="full">
+              <ion-label position="floating">Sexe*</ion-label>
+              <ion-select interface="popover" formControlName="sex" [(ngModel)]="user.sex">
+                <ion-select-option value="0">Homme</ion-select-option>
+                <ion-select-option value="1">Femme</ion-select-option>
+                <ion-select-option value="2">Autre</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <!-- <ion-list radio-group formControlName="sex" [(ngModel)]="user.sex">
+              <ion-item>
+                <ion-label>Homme</ion-label>
+                <ion-radio value="0"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Femme</ion-label>
+                <ion-radio value="1"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Autre</ion-label>
+                <ion-radio value="2"></ion-radio>
+              </ion-item>
+            </ion-list> -->
+            
+            <ion-item lines="full">
+              <ion-label position="floating">Email*</ion-label>
+              <ion-input type="email" formControlName="email" [(ngModel)]="user.email"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Nouveau mot de passe</ion-label>
+              <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Tel :</ion-label>
+              <ion-input type="tel" formControlName="phone" [(ngModel)]="user.phone"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Adresse</ion-label>
+              <ion-input type="text" formControlName="address" [(ngModel)]="user.address"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Ville :</ion-label>
+              <ion-input type="text" formControlName="town" [(ngModel)]="user.town"></ion-input>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-label position="floating">Code postal :</ion-label>
+              <ion-input type="text" formControlName="postalCode" [(ngModel)]="user.postalCode"></ion-input>
+            </ion-item>
+          </div>
+          <div padding>
+            <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row> -->
+  </form>
 </ion-content>

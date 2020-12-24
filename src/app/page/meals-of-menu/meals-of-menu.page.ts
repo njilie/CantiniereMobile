@@ -8,6 +8,7 @@ import { MenuOUT } from 'src/app/shared/interfaces/menu';
 import { ImageOUT } from 'src/app/shared/interfaces/image';
 import { User /*UserOUT*/} from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-meals-of-menu',
@@ -25,7 +26,8 @@ export class MealsOfMenuPage implements OnInit {
     private menuService: MenuService,
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    public alertController: AlertController) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -59,16 +61,38 @@ export class MealsOfMenuPage implements OnInit {
     );
   }
 
-  orderMaker(menuId: number): void {
-    if (confirm('Etes-vous sûr de vouloir ajouter ce menu au panier ?')) {
+  async orderMaker(menuId: number): Promise<void> {
+    // if (confirm('Etes-vous sûr de vouloir ajouter ce menu au panier ?')) {
 
-      this.loading = true;
-      const user: User = this.authService.userLogged();
-      if (user) {
-        this.orderService.orderMaker(user.id, 'menu', null, menuId);
-      }
+    //   this.loading = true;
+    //   const user: User = this.authService.userLogged();
+    //   if (user) {
+    //     this.orderService.orderMaker(user.id, 'menu', null, menuId);
+    //   }
 
-    }
+    // }
+
+    const confirm = await this.alertController.create({
+      header: 'Attention !',
+      message: 'Etes-vous sûr de vouloir ajouter ce menu au panier ?',
+      buttons: [
+        { text: 'Non', role: 'cancel' },
+        {
+          text: 'Oui',
+          handler: () => {
+            
+            this.loading = true;
+            const user: User = this.authService.userLogged();
+            if (user) {
+              this.orderService.orderMaker(user.id, 'menu', null, menuId);
+            }
+
+          }
+        }
+      ]
+    });
+
+    await confirm.present();
   }
 
 }

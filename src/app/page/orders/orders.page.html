@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon slot="start" name="logo-euro"></ion-icon>
+      <span class="text-important m-r-5">{{ user.wallet | number:'1.1-2' }} €</span>
+    </ion-buttons>
+    <ion-title>Panier</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-right">
+        <ion-button *ngIf="allOrdersUrl; else allMenusBtn"
+        [routerLink]="['../']" 
+        color="light" class="ion-margin-top ion-margin-start">
+          Mes commandes en cours
+        </ion-button>
+        <ng-template #allMenusBtn>
+          <ion-button [routerLink]="['all']" 
+          color="light" class="ion-margin-top ion-margin-start">
+            Toutes mes commandes
+          </ion-button>
+        </ng-template>
+      </ion-col>
+      <ion-col class="ion-text-right">
+        <div *ngIf="orders">
+          <div *ngIf="orders[0]">
+            <ion-button *ngIf="orders[0].status === 0" (click)="removeOrder(orders[0].id)"
+             color="light" class="ion-margin-top ion-margin-start">
+              Annuler la commande
+            </ion-button>
+            <ion-button *ngIf="orders[0].status === 0" (click)="makeOrder(orders[0].id)"
+             color="light" class="ion-margin-top ion-margin-start">
+              Commander
+            </ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card *ngFor="let order of orders; let i = index">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p class="heading">Commande n° {{ order.id }}</p>
+        </ion-col>
+        <ion-col *ngIf="totalsPrices[i]" class="ion-text-right">
+          <p class="heading">
+            Prix total TTC de la commande: 
+            <span class="text-important">{{ totalsPrices[i].priceVAT | number:'1.1-2' }} €</span>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list>
+      <ion-item *ngFor="let quantity of order.quantity">
+        <ion-grid>
+          <ion-row *ngIf="quantity.menu">
+            <ion-col col-6>
+              <ion-thumbnail item-left>
+                <img src="../../../assets/uploads/gallery_img-01.jpg">
+              </ion-thumbnail>
+            </ion-col>
+            <ion-col col-6>
+              <p class="heading">Menu: {{ quantity.menu.label }}</p>
+              <div *ngFor="let meal of quantity.menu.meals">
+                <p>Plat : {{ meal.label }}</p>
+                <p>Prix: <span class="text-important">{{ meal.priceDF }} €</span></p>
+              </div>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row *ngIf="quantity.meal">
+            <ion-col col-6>
+              <ion-thumbnail item-left>
+                <img src="../../../assets/uploads/menu-img-01.jpg">
+              </ion-thumbnail>
+            </ion-col>
+            <ion-col col-6>
+              <p class="heading">Plat: {{ quantity.meal.label }}</p>
+              <div class="ingredient-container">
+                <p>Ingrédients :</p>
+                <ul *ngFor="let ingredient of quantity.meal.ingredients">
+                  <li>{{ ingredient.label }}</li>
+                </ul>
+              </div>
+
+              <p>Prix: <span class="text-important">{{ quantity.meal.priceDF * quantity.quantity }} €</span></p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              Quantité : {{ quantity.quantity }}
+            </ion-col>
+            <ion-col class="ion-text-right" col-6>
+              <ion-icon name="trash-outline" (click)="removeFromOrder(order.id, order.quantity, quantity.id)"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

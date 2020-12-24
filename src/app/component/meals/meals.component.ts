@@ -8,6 +8,7 @@ import { MealOUT } from 'src/app/shared/interfaces/meal';
 import { ImageOUT } from 'src/app/shared/interfaces/image';
 import { QuantityIN, QuantityOUT } from 'src/app/shared/interfaces/quantity';
 import { User /*UserOUT*/} from 'src/app/shared/interfaces/user';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class MealsComponent implements OnInit {
   constructor(
     private mealService: MealService,
     private orderService: OrderService,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    public alertController: AlertController) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -53,16 +55,38 @@ export class MealsComponent implements OnInit {
     );
   }
 
-  orderMaker(mealId: number): void {
-    if (confirm('Etes-vous sûr de vouloir ajouter ce plat au panier ?')) {
+  async orderMaker(mealId: number): Promise<void> {
+    // if (confirm('Etes-vous sûr de vouloir ajouter ce plat au panier ?')) {
 
-      this.loading = true;
-      const user: User = this.authService.userLogged();
-      if (user) {
-        this.orderService.orderMaker(user.id, 'meal', mealId);
-      }
+    //   this.loading = true;
+    //   const user: User = this.authService.userLogged();
+    //   if (user) {
+    //     this.orderService.orderMaker(user.id, 'meal', mealId);
+    //   }
 
-    }
+    // }
+
+    const confirm = await this.alertController.create({
+      header: 'Attention !',
+      message: 'Etes-vous sûr de vouloir ajouter ce plat au panier ?',
+      buttons: [
+        { text: 'Non', role: 'cancel' },
+        {
+          text: 'Oui',
+          handler: () => {
+            
+            this.loading = true;
+            const user: User = this.authService.userLogged();
+            if (user) {
+              this.orderService.orderMaker(user.id, 'meal', mealId);
+            }
+
+          }
+        }
+      ]
+    });
+
+    await confirm.present();
   }
 
 }

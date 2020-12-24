@@ -13,15 +13,15 @@ import { API_URL } from '../constants/api-url';
 import { handleError } from '../constants/handle-http-errors';
 import { OrderOUT, OrderIN, PriceOUT } from '../interfaces/order';
 import { QuantityIN, QuantityOUT } from '../interfaces/quantity';
-// import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
 
-  constructor(private http: HttpClient, /*private snackBar: MatSnackBar, */private router: Router) {}
+  constructor(private http: HttpClient, public alertController: AlertController, private router: Router) {}
 
   getTodayOrdersOfUser(userId: number): Observable<OrderOUT[]> {
     return (
@@ -89,7 +89,6 @@ export class OrderService {
   }
 
   update(orderId: number, order: OrderIN): Observable<OrderOUT> {
-    console.log(order);
     return (
       this.http
         .patch<OrderOUT>(`${API_URL}/order/update/${orderId}`, order)
@@ -183,32 +182,52 @@ export class OrderService {
     };
 
     this.update(orderToUpdateId, updatedContent).subscribe(
-      () => {
+      async () => {
         if (type === 'menu')
         {
-          // const snackBarRef = this.snackBar.open(`Menu ajouté au panier`, '', {
-          //   duration: 2000,
-          //   verticalPosition: 'bottom'
-          // });
-          // snackBarRef.afterDismissed().subscribe(() => {
-          //   this.router.navigate(['orders']);
-          // });
+          const alert = await this.alertController.create({
+            header: 'Succès !',
+            message: 'Menu ajouté au panier',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.router.navigate(['orders']);
+                }
+              }
+            ]
+          });
+      
+          await alert.present();
         }
         else if (type === 'meal')
         {
-          // const snackBarRef = this.snackBar.open(`Plat ajouté au panier`, '', {
-          //   duration: 2000,
-          //   verticalPosition: 'bottom'
-          // });
-          // snackBarRef.afterDismissed().subscribe(() => {
-          //   this.router.navigate(['orders']);
-          // });
+          const alert = await this.alertController.create({
+            header: 'Succès !',
+            message: 'Plat ajouté au panier',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.router.navigate(['orders']);
+                }
+              }
+            ]
+          });
+      
+          await alert.present();
         }
       },
-      (error) => {
+      async (error) => {
         console.log(error);
         if (error.status === 412 && error.exceptionMessage === 'L\'heure authorisée pour passer une commande est dépassée') {
-          alert('Erreur : L\'ajout au panier ne peut se faire qu\'avant 10h30');
+          const alert = await this.alertController.create({
+            header: 'Erreur !',
+            message: 'L\'ajout au panier ne peut se faire qu\'avant 10h30',
+            buttons: ['OK']
+          });
+      
+          await alert.present();
         }
       }
     );
@@ -228,26 +247,40 @@ export class OrderService {
     };
 
     this.add(order).subscribe(
-      () => {
+      async () => {
         if (type === 'menu')
         {
-          // const snackBarRef = this.snackBar.open(`Menu ajouté au panier`, '', {
-          //   duration: 2000,
-          //   verticalPosition: 'bottom'
-          // });
-          // snackBarRef.afterDismissed().subscribe(() => {
-          //   this.router.navigate(['orders']);
-          // });
+          const alert = await this.alertController.create({
+            header: 'Succès !',
+            message: 'Menu ajouté au panier',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.router.navigate(['orders']);
+                }
+              }
+            ]
+          });
+      
+          await alert.present();
         }
         else if (type === 'meal')
         {
-          // const snackBarRef = this.snackBar.open(`Plat ajouté au panier`, '', {
-          //   duration: 2000,
-          //   verticalPosition: 'bottom'
-          // });
-          // snackBarRef.afterDismissed().subscribe(() => {
-          //   this.router.navigate(['orders']);
-          // });
+          const alert = await this.alertController.create({
+            header: 'Succès !',
+            message: 'Plat ajouté au panier',
+            buttons: [
+              {
+                text: 'OK',
+                handler: () => {
+                  this.router.navigate(['orders']);
+                }
+              }
+            ]
+          });
+      
+          await alert.present();
         }
       },
       (error) => {
