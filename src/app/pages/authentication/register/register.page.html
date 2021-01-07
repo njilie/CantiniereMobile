@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [hidden]="submitted">
+    <h1>Créer mon compte</h1>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <ion-item lines="full">
+        <ion-label position="floating">Prénom</ion-label>
+        <ion-input type="text" required formControlName="firstname" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input type="text" formControlName="name" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Sexe</ion-label>
+        <ion-input type="number"  formControlName="sex" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Adresse</ion-label>
+        <ion-input type="text" formControlName="address" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Code postal</ion-label>
+        <ion-input type="text" formControlName="postalCode"  maxlength="6" required></ion-input>
+      </ion-item>
+  
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"  required></ion-input>
+        <div [hidden]="email.valid || email.pristine" style="margin-top: 10px;">
+          <small *ngIf="email.errors?.required" class="alert alert-danger">Email is required</small>
+          <small *ngIf="email.errors?.pattern" class="alert alert-danger">Example: toto@gmail.com</small>
+        </div>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password" required></ion-input>
+        <div [hidden]="password.valid || password.pristine" style="margin-top: 8px;">
+          <small *ngIf="password.errors?.required" class="alert alert-danger">Password is required</small>
+          <small *ngIf="password.errors?.pattern" class="alert alert-danger">Example: Test145.</small>
+        </div>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" [disabled]="!userForm.valid" (click)="valide()" expand="block">Register</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+    <div *ngIf="clickSubmit">
+      <span *ngIf="password.status != 'valid' || email.status != 'valid'" [ngClass]="{'bad': 'message.error'}"> {{ message }}</span> 
+    </div>
+  </div>
+</ion-content>

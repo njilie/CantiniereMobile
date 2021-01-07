@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Forgot</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>Mot de passe oublié?</h1>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email" required></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" [disabled]="!userForm.valid" expand="block" (click)="valide()">Send</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <small>
+      Veuillez fournir l'adresse e-mail que vous avez utilisé<br><span style="padding-left: 50px;">lors de votre signature
+      pour votre compte</span>
+    </small>
+  </form>
+  <div *ngIf="clickSubmit" style="margin-top:50px">
+    <span *ngIf="email.status != 'valid'" [ngClass]="{'bad': 'message.error'}">{{ message }}</span> 
+  </div>
+
+</ion-content>

@@ -1,0 +1,23 @@
+ion-button{
+    --background: #8dbd56;
+    --background-activated: #8dbd56;
+  }
+
+h1{
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+}
+.alert{
+    color: red;
+}
+.bad{
+    color: white;
+    background-color: #d9534f;
+    margin: 50px 0;
+    padding: 10px;
+    font-size: 1.2em;
+}
+form{
+  margin-top: -10px;
+}

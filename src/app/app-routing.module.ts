@@ -1,34 +1,44 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthService } from './shared/auth/auth.service';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./page/tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'menu/:id/meals',
-    loadChildren: () => import('./page/meals-of-menu/meals-of-menu.module').then( m => m.MealsOfMenuPageModule)
+    loadChildren: () => import('./pages/meals-of-menu/meals-of-menu.module').then( m => m.MealsOfMenuPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./page/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthService]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/authentication/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'logout',
-    loadChildren: () => import('./page/authentication/logout/logout.module').then( m => m.LogoutPageModule)
+    loadChildren: () => import('./pages/authentication/logout/logout.module').then( m => m.LogoutPageModule)
   },
   {
     path: 'register',
-    loadChildren: () => import('./page/authentication/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./pages/authentication/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'forgot',
-    loadChildren: () => import('./page/authentication/forgot/forgot.module').then( m => m.ForgotPageModule)
-  },  {
+    loadChildren: () => import('./pages/authentication/forgot/forgot.module').then( m => m.ForgotPageModule)
+  },
+  {
     path: 'orders',
-    loadChildren: () => import('./page/orders/orders.module').then( m => m.OrdersPageModule)
+    loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule),
+    canActivate: [AuthService]
   }
+
+
 
 
 ];

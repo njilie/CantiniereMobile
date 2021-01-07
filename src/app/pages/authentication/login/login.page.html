@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [hidden]="submitted">
+    <p class="avatar">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </p>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <ion-item lines="full">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="email" required></ion-input>
+          <div [hidden]="email.valid || email.pristine" style="margin-top: 8px;">
+            <small *ngIf="email.errors?.required"  class="alert alert-danger">Email is required</small>
+          </div>
+      </ion-item>
+  
+      <ion-item lines="full">
+          <ion-label position="floating">Mot de passe</ion-label>
+          <ion-input type="password" formControlName="password" required></ion-input>
+          <div [hidden]="password.valid || password.pristine" style="margin-top: 8px;">
+            <small *ngIf="password.errors?.required"  class="alert alert-danger">Password is required</small>
+          </div>
+      </ion-item>
+    
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" expand="block" color="danger" [disabled]="!userForm.valid" (click)="valide()">Connexion</ion-button>
+          <p><a [routerLink]="['/forgot']" class="small-text">Forgot Password?</a></p>
+        </ion-col>
+      </ion-row>
+    </form>
+    <div *ngIf="clickSubmit"> 
+      <span *ngIf="password.status != 'valid' || email.status != 'valid'" [ngClass]="{'bad': 'message.error'}">{{ message }}</span>
+    </div>
+  </div>
+</ion-content>

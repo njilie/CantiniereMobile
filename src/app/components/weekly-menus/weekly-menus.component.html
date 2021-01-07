@@ -1,0 +1,15 @@
+<ion-card *ngFor="let menu of menus">
+  <!--[src]="menu.imgUrl" alt="Image du menu" width="380" height="275"-->
+  <img src="../../../assets/uploads/gallery_img-01.jpg" />
+  <ion-card-header>
+    <ion-card-subtitle>Menu</ion-card-subtitle>
+    <ion-card-title>{{ menu.label }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <span class="d-inline-block w-100 ion-text-right">
+      <ion-button size="small" color="success" [routerLink]="['/menu', menu.id, 'meals']">
+        En savoir plus
+      </ion-button>
+    </span>
+  </ion-card-content>
+</ion-card>

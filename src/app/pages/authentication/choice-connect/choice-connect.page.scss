@@ -1,0 +1,29 @@
+.container{
+    margin-top: 150px;
+}
+ion-button{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+h3{
+    text-align: center;
+    margin: 30px 0 15px 0;
+}
+hr {
+    border: none;
+    border-top: 3px solid rgb(126, 123, 123,0.1);
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    margin-top: 30px;
+}
+
+hr:after {
+    background: #fff;
+    content: 'OR';
+    padding: 0 10px;
+    position: relative;
+    top: -13px;
+    border: 0;
+}

@@ -11,6 +11,8 @@ export interface MealOUT {
     availableForWeeks: number[];
     category: number;
     ingredients: IngredientOUT[];
+    ///////////////
+    imgUrl: string;
 }
 
 export interface MealIN {
