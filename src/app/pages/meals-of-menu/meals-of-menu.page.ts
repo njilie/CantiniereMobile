@@ -11,6 +11,8 @@ import { ImageOUT } from 'src/app/shared/interfaces/image';
 import { User /*UserOUT*/} from 'src/app/shared/interfaces/user';
 
 import { AlertController } from '@ionic/angular';
+import { MealOUT } from 'src/app/shared/interfaces/meal';
+import { MealService } from 'src/app/shared/services/meal.service';
 
 @Component({
   selector: 'app-meals-of-menu',
@@ -23,9 +25,11 @@ export class MealsOfMenuPage implements OnInit {
   menuId!: number;
   menusImages!: ImageOUT[];
   loading!: boolean;
+  meals: MealOUT[] = [];
 
   constructor(
     private menuService: MenuService,
+    private mealService: MealService,
     private route: ActivatedRoute,
     private orderService: OrderService,
     private authService: AuthService,
@@ -48,7 +52,7 @@ export class MealsOfMenuPage implements OnInit {
         this.loading = false;
         this.menu.meals.forEach((meal) => {
           //this.menuService.getMenuImage(meal.imageId)
-          this.menuService.getMenuImage(meal.id).subscribe(
+          this.mealService.getMealImage(meal.id).subscribe(
             (image) => {
               //this.menusImages.push(image);
               meal.imgUrl = `${API_URL}/${image.imagePath}`;

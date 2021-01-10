@@ -36,7 +36,44 @@ const routes: Routes = [
     path: 'orders',
     loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule),
     canActivate: [AuthService]
+  },
+  {
+    path: 'meals',
+    loadChildren: () => import('./pages/admin/meals/meals.module').then( m => m.MealsPageModule)
+  },
+  {
+    path: 'menus',
+    loadChildren: () => import('./pages/admin/menus/menus.module').then( m => m.MenusPageModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./pages/admin/user/user.module').then( m => m.UserPageModule)
+  },
+  {
+    path: 'newmeal',
+    loadChildren: () => import('./pages/admin/newmeal/newmeal.module').then( m => m.NewmealPageModule)
+  },
+  {
+    path: 'newmenu',
+    loadChildren: () => import('./pages/admin/newmenu/newmenu.module').then( m => m.NewmenuPageModule)
+  },
+  {
+    path: 'user-admin/:id',
+    loadChildren: () => import('./pages/admin/user-admin/user-admin.module').then( m => m.UserAdminPageModule)
+  },
+  {
+    path: 'manage-meal/:id',
+    loadChildren: () => import('./pages/admin/manage-meal/manage-meal.module').then( m => m.ManageMealPageModule)
+  },
+  {
+    path: 'manage-menu/:id',
+    loadChildren: () => import('./pages/admin/manage-menu/manage-menu.module').then( m => m.ManageMenuPageModule)
+  },  {
+    path: 'ingredient',
+    loadChildren: () => import('./pages/admin/ingredient/ingredient.module').then( m => m.IngredientPageModule)
   }
+
+
 
 
 

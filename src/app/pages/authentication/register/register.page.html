@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button text="Retour" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Register</ion-title>
+    <ion-title>Créer votre compte</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -46,7 +46,7 @@
       </ion-item>
 
       <ion-item lines="full">
-        <ion-label position="floating">Password</ion-label>
+        <ion-label position="floating">Mot de passe</ion-label>
         <ion-input type="password" formControlName="password" required></ion-input>
         <div [hidden]="password.valid || password.pristine" style="margin-top: 8px;">
           <small *ngIf="password.errors?.required" class="alert alert-danger">Password is required</small>
@@ -56,7 +56,7 @@
 
       <ion-row>
         <ion-col>
-          <ion-button type="submit" [disabled]="!userForm.valid" (click)="valide()" expand="block">Register</ion-button>
+          <ion-button type="submit" [disabled]="!userForm.valid" (click)="valide()" expand="block">Enregistrer</ion-button>
         </ion-col>
       </ion-row>
 
